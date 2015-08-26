@@ -2,7 +2,7 @@
 import base64
 from html5lib import sanitizer, serializer, treebuilders, treewalkers
 import html5lib
-from PIL import Image
+#from PIL import Image
 import re
 import uuid
 
@@ -106,13 +106,14 @@ def extract_images(data, plugin):
         elif image_type == "gif":
             file_ending = "gif"
         else:
-            # any not "web-safe" image format we try to convert to jpg
-            im = Image.open(image)
-            new_image = BytesIO()
-            file_ending = "jpg"
-            im.save(new_image, "JPEG")
-            new_image.seek(0)
-            image = new_image
+            file_ending = image_type
+#            # any not "web-safe" image format we try to convert to jpg
+#            im = Image.open(image)
+#            new_image = BytesIO()
+#            file_ending = "jpg"
+#            im.save(new_image, "JPEG")
+#            new_image.seek(0)
+#            image = new_image
         filename = u"%s.%s" % (uuid.uuid4(), file_ending)
         # transform image into a cms plugin
         image_plugin = img_data_to_plugin(filename, image, parent_plugin=plugin, width=width, height=height)
